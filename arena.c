@@ -13,12 +13,15 @@ arena_t *arena_create(){
     return arena;
 }
 
-void arena_init_with_capacity(arena_t *arena, uint64_t capacity){
+arena_t *arena_create_with_capacity(uint64_t capacity){
+    arena_t *arena;
     arena = (arena_t *) malloc(sizeof(arena_t));
 
     arena->capacity = capacity;
     arena->elem = malloc(arena->capacity);
     arena->length = 0;
+
+    return arena;
 }
 
 void arena_realloc(arena_t *arena, uint64_t bytes){

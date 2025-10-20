@@ -14,7 +14,7 @@ typedef struct{
 arena_t *arena_create();
 // initializes an arena with a user-defined capacity.
 // Assumes the arena is not pre-allocated
-void arena_init_with_capacity(arena_t *arena, uint64_t capacity);
+arena_t *arena_create_with_capacity(uint64_t capacity);
 
 // re-sizes the arena to the desired capacity.
 // if bytes < arena->length, then the arena is truncated to fit.
