@@ -16,4 +16,6 @@ sudo make install
 will install the library. The default location is `/usr/local/lib/`
 
 ## Usage
-Please refer to the [docs](./docs/docs.md) for usage instructions.
+Please refer to the [docs](./docs/docs.md) for usage instructions. 
+
+Note they are unfinished and unhelpfull in their present state.
