@@ -1,6 +1,6 @@
 CC?=clang
 CFLAGS+=-fpic
-INSTALL_DIR?=~/.local/
+INSTALL_DIR?=/usr/local/
 lib_dir:=/lib/
 include_dir?=/include/
 OBJS:=arena.o
