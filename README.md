@@ -13,5 +13,5 @@ will compile and build the shared library. Running
 ```bash
 sudo make install
 ```
-will install the library. The default location is `/usr/local/lib`
+will install the library. The default location is `/usr/local/lib/`
 
