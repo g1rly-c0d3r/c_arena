@@ -13,7 +13,8 @@ will compile and build the shared library. Running
 ```bash
 sudo make install
 ```
-will install the library. The default location is `/usr/local/lib/`
+will install the library. The default location is `/usr/local/lib/`. To install to a different location, prepend `INSTALL_DIR=<your/dir/>`
+to `make install`
 
 ## Usage
 Please refer to the [docs](./docs/docs.md) for usage instructions. 
