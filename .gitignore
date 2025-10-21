@@ -1,4 +1,5 @@
 test_arena
 libarena.so
 a.out
-./docs/docs.pdf
+docs.pdf
+arena.o
