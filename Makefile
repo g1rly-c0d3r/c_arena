@@ -8,12 +8,12 @@ OBJS:=arena.o
 libarena.so: $(OBJS)
 	$(CC) -shared -o $@ $^
 
-test_arena: test.c  ${OBJS}
-	$(CC) -o $@ $^
+test: test.c libarena.so
+	$(CC) $(CFLAGS) -o $@ $^
 
 .PHONY: clean install
 clean:
-	rm -f $(OBJS) test_arena libarena.so
+	rm -f $(OBJS) test libarena.so a.out
 
 install: libarena.so
 	cp $^ $(INSTALL_DIR)/$(lib_dir)
