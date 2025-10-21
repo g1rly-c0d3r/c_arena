@@ -37,6 +37,7 @@ void *arena_push(arena_t *arena, uint64_t numBytes){
     }
 
     // resulting memory is the arena offset plus the number of bytes currently allocated
+    // arithmetic with void* is not allowed, so we need to cast to char* first
     ptr = &(((char*)arena->elem)[arena->length]);
 
     arena->length += numBytes;

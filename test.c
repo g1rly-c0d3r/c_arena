@@ -14,8 +14,10 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
+// if you add tests, you will need to update this number
 #define NUM_TESTS 6
 
+// Declare tests here
 void create_test();
 void create_w_cap_test();
 void realloc_test();
@@ -26,7 +28,8 @@ void clear_test();
 
 void run_tests(char** tests, int numtest);
 
-void (*test_fns[])() = {
+// If you add tests, you will need to add them to this function pointer array
+void (*test_fns[NUM_TESTS])() = {
     create_test,
     create_w_cap_test,
     realloc_test,
@@ -62,9 +65,9 @@ int main(int argc, char** argv) {
 void create_test(){
     arena_t *arena = arena_create();
     if (arena->capacity == 800 && arena->length == 0){
-        printf("Test 1 %spassed!%s (%screate%s)\n", KGRN , KNRM, KYEL, KNRM);
+        printf("Test 1 %spassed%s! (%screate%s)\n", KGRN , KNRM, KYEL, KNRM);
     } else{
-        printf("Test 1 %sFailed!%s (%screate%s)\n", KRED, KNRM, KYEL, KNRM);
+        printf("Test 1 %sFailed%s! (%screate%s)\n", KRED, KNRM, KYEL, KNRM);
     }
     arena_free(arena);
 }
@@ -72,9 +75,9 @@ void create_test(){
 void create_w_cap_test(){
     arena_t *arena = arena_create_with_capacity(100);
     if(arena->capacity == 100 && arena->length==0){
-        printf("Test 2 %spassed!%s (%screate_w_cap%s)\n", KGRN , KNRM, KYEL, KNRM);
+        printf("Test 2 %spassed%s! (%screate_w_cap%s)\n", KGRN , KNRM, KYEL, KNRM);
     } else {
-        printf("Test 2 %sFailed!%s (%screate_w_cap%s)\n",KRED,KNRM, KYEL, KNRM);
+        printf("Test 2 %sFailed%s! (%screate_w_cap%s)\n",KRED,KNRM, KYEL, KNRM);
     }
     arena_free(arena);
 }
