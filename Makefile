@@ -1,5 +1,6 @@
+CERRFLAGS:=-pedantic -Wall -Wextra -Werror
 CC?=clang
-CFLAGS+=-fpic
+CFLAGS+=-fpic $(CERRFLAGS)
 INSTALL_DIR?=/usr/local/
 lib_dir:=/lib/
 include_dir?=/include/
@@ -9,7 +10,7 @@ libarena.so: $(OBJS)
 	$(CC) -shared -o $@ $^
 
 test: test.c libarena.so
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) -g $(CFLAGS) -o $@ $^
 
 .PHONY: clean install
 clean:
