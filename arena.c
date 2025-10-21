@@ -25,15 +25,8 @@ arena_t *arena_create_with_capacity(uint64_t capacity){
 }
 
 void arena_realloc(arena_t *arena, uint64_t bytes){
-    void *new_elem = malloc(bytes);
-
-    if (arena->length < bytes)
-        memcpy(new_elem, arena->elem,  bytes);
-    else
-        memcpy(new_elem, arena->elem, arena->length);
-
-    free(arena->elem);
-    arena->elem = new_elem;
+    arena->capacity = bytes;
+    arena->elem = realloc(arena->elem, arena->capacity);
 }
 
 void *arena_push(arena_t *arena, uint64_t numBytes){
@@ -44,7 +37,7 @@ void *arena_push(arena_t *arena, uint64_t numBytes){
     }
 
     // resulting memory is the arena offset plus the number of bytes currently allocated
-    ptr = arena + arena->length;
+    ptr = &(((char*)arena->elem)[arena->length]);
 
     arena->length += numBytes;
 
@@ -53,6 +46,10 @@ void *arena_push(arena_t *arena, uint64_t numBytes){
 
 void arena_pop(arena_t *arena, uint64_t numBytes){
     arena->length -= numBytes;
+}
+
+void arena_clear(arena_t *arena){
+    arena->length = 0;
 }
 
 
