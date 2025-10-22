@@ -3,6 +3,7 @@
 Small arena implementation for the C language. Zero dependancies.
 Inspired by Nic Barker's [youtube video](https://youtu.be/hI9aN8ZG4vg) on arenas,
 and Ryan Fluery's [blog post](https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator).
+There are no dependancies aside from the standard library, so it should be cross-platform, but I have no idea.
 
 ## Installation
 Installation is handled by `make`. Running 
