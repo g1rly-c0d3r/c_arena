@@ -27,6 +27,8 @@ arena_t *arena_create_with_capacity(uint64_t capacity){
 void arena_realloc(arena_t *arena, uint64_t bytes){
     arena->capacity = bytes;
     arena->elem = realloc(arena->elem, arena->capacity);
+    if(arena->length > arena->capacity)
+        arena->length = arena->capacity;
 }
 
 void *arena_push(arena_t *arena, uint64_t numBytes){

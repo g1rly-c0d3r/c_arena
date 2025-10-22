@@ -38,6 +38,8 @@ void (*test_fns[NUM_TESTS])() = {
     clear_test,
 };
 
+// tests if argv has a valid list of tests, 
+// or if we want to run all of the tests
 bool valid(char **tests, int numtest){
     if(strcmp(tests[1], "all") == 0){
         return true;
@@ -85,11 +87,25 @@ void create_w_cap_test(){
 void realloc_test(){
     arena_t *arena = arena_create();
 
+    // strpos must be used after a realloc 
+    // to ensure that str still points to valid data.
+    uint64_t strpos = arena->length;
+    char *str = arena_push(arena, 7);
+
+    strncpy(str, "hello", 7);
+
     arena_realloc(arena, 10);
-    if (arena->capacity != 10)
+    str = (char *)arena->elem + strpos;
+    if (arena->capacity != 10 || strncmp(str, "hello", 7) != 0)
         goto fail;
     arena_realloc(arena, 1200);
+    str = (char *)arena->elem + strpos;
     if(arena->capacity != 1200)
+        goto fail;
+    arena_realloc(arena, 3); // after this, str will only be valid for 3 bytes
+    str = (char *)arena->elem + strpos; 
+    // reading past 3 bytes might segfault
+    if(strncmp(str, "hel", 3) != 0)
         goto fail;
 
     printf("Test 3 %spassed%s! (%srealloc%s)\n", KGRN, KNRM, KYEL, KNRM);
@@ -104,6 +120,7 @@ fail:
 void push_test(){
     arena_t *arena = arena_create_with_capacity(10);
 
+    uint64_t str1pos = arena->length;
     char *str1 = arena_push(arena, 5);
     if(arena->length != 5)
         goto fail;
@@ -112,9 +129,11 @@ void push_test(){
     if(strncmp(str1, "hai", 5) != 0)
         goto fail;
 
-    char *str2 = arena_push(arena, 7);
+    char *str2 = arena_push(arena, 7); // since we are pushing past arena->length, realloc is called.
+                                       // so anything else on this arena need to be restored.
     strncpy(str2, "hello", 7);
-    if(arena->length != 12 || strncmp(str2, "hello", 7) != 0)
+    str1 = (char *)arena->elem + str1pos;
+    if(arena->length != 12 || strncmp(str2, "hello", 7) != 0 || strncmp(str1, "hai", 5))
         goto fail;
 
     printf("Test 4 %spassed%s! (%spush%s)\n", KGRN, KNRM, KYEL, KNRM);
