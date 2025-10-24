@@ -8,6 +8,7 @@ OBJS:=arena.o
 
 libarena.so: $(OBJS)
 	$(CC) -shared -o $@ $^
+	strip --strip-unneeded $@
 
 test: test.c libarena.so
 	$(CC) -g $(CFLAGS) -o $@ $^
